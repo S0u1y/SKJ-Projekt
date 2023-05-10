@@ -17,9 +17,13 @@
 
 <body>
 
-    <form action="" method=POST style="margin: 5%;">
+    <form action="{% url 'login' %}" method=POST style="margin: 5%;">
         {% csrf_token %}
-        
+        <div class="row">
+            <div class="col" align="left">
+                <a class="btn" href="{% url 'index' %}">Back</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-4">
                 <label class="form-label" for="email">Email</label>

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -14,9 +15,8 @@ class Address(models.Model):
         return self.name
 
 
-#Could've created a new user type, but I just had no time
+# Could've created a new user type, but I just had no time
 class User(models.Model):
-
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=35)
     surname = models.CharField(max_length=35)
@@ -40,6 +40,9 @@ class Document(models.Model):
     def __str__(self):
         return self.title
 
+    def get_number_of_pages(self):
+        return Page.objects.filter(document=self).count()
+
 
 class Page(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
@@ -48,6 +51,18 @@ class Page(models.Model):
 
     def __str__(self):
         return f'{self.document.title}, ' + str(self.page_number)
+
+    def get_next_page_number(self):
+        if len(Page.objects.all()) > self.page_number:
+            return Page.objects.get(id=self.id).page_number + 1
+
+        return self.page_number
+
+    def get_prev_page_number(self):
+        if 1 < self.page_number:
+            return Page.objects.get(id=self.id).page_number - 1
+
+        return self.page_number
 
 
 class Comment(models.Model):
@@ -69,5 +84,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'{self.user.email}, {self.date}'
-
-

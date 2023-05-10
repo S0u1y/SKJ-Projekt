@@ -23,9 +23,13 @@
         <p style="border-style: solid; min-height: 10vh;">
             {{ document.description }}
         </p>
+        {% if document.get_number_of_pages > 0 %}
         <a class="btn btn-dark" href="{% url 'page' document.id 1 %}">
             READ
         </a>
+        {% else %}
+        <h3> There are no pages for this document yet. </h3>
+        {% endif %}
     </div>
 
     <div style="margin-top: 25vh;"></div>
