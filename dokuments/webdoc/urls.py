@@ -9,6 +9,11 @@ urlpatterns = [
     path('page/<int:document_id>/<int:page_num>/', views.page, name='page'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('registeruser/', views.registeruser, name='registeruser'),
     path('info/', views.info, name='info'),
     path('contacts/', views.contacts, name='contacts'),
+    path('payment/', views.payment, name='payment'),
+    path('makepayment/', views.makepayment, name='makepayment'),
+
+
 ]

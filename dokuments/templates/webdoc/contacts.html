@@ -51,7 +51,19 @@
     min-height: 50vh;
     min-width: 95vw;
     margin-top: 5vh;">
-    
+      {% for person in staff %}
+      <div class="row">
+        <div class="col">
+          {{ person.name }}, {{ person.surname }}
+        </div>
+        <div class="col">
+          {{ person.email }}
+        </div>
+        <div class="col">
+          {{person.phone}}
+        </div>
+      </div>
+      {% endfor %}
   </div>
 
 

@@ -40,8 +40,8 @@ def addcomment(request, document_id):
 
 
 def page(request, document_id, page_num):
-    page = Page.objects.get(document=Document.objects.get(pk=document_id)
-                            , page_number=page_num)
+    document = Document.objects.get(pk=document_id)
+    page = Page.objects.get(document=document, page_number=page_num)
 
     return render(request, 'webdoc/page.html', {'page': page})
 
@@ -58,7 +58,7 @@ def login(request):
     if user is None:
         return redirect('login')
     if user.password == password:
-        return redirect('home')
+        return redirect('index')
     else:
         return redirect('login')
 
@@ -79,8 +79,9 @@ def registeruser(request):
         address = user_form.cleaned_data.get('address')
         password = user_form.cleaned_data.get('password')
         phone = user_form.cleaned_data.get('phone')
+        email = user_form.cleaned_data.get('email')
 
-        newUser = User(name=name, surname=sur_name, address=address, password=password, phone=phone)
+        newUser = User(name=name, surname=sur_name, address=address, password=password, phone=phone, email=email)
         newUser.save()
         pass
 
@@ -92,4 +93,28 @@ def info(request):
 
 
 def contacts(request):
-    return render(request, 'webdoc/contacts.html')
+    staff = User.objects.filter(permission='Z')
+    return render(request, 'webdoc/contacts.html', {'staff': staff})
+
+#TODO payments
+
+def payment(requrest):
+    payment_form = PaymentForm()
+    return render(requrest, 'webdoc/payment.html', {'payment_form': payment_form})
+
+
+def makepayment(request):
+    if request.method != 'post':
+        payment_form = PaymentForm()
+        return render(request, 'webdoc/payment.html', {'payment_form': payment_form})
+
+    payment_form = PaymentForm(request.POST)
+    if payment_form.is_valid():
+        payment = Payment(
+            user=payment_form.cleaned_data.get('user'),
+            amount=payment_form.cleaned_data.get('amount')
+        )
+
+#TODO create documents?
+
+

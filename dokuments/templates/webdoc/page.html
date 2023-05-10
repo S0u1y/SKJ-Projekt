@@ -17,19 +17,23 @@
         </div>
     </div>
 
-    <div class="container" align="center">
-        <h1> {{page.content}} </h1>
+    <div class="container" align="center" style="margin-top: 15vh;">
+        <p> {{page.content}} </p>
     </div>
 
     <div style="margin-top: 100%;"></div>
 
     <div class="row">
+        {% if page.get_prev_page_number != page.page_number %}
         <div class="col" align="left">
-            <a class="btn" href="{% url 'page' page.document.id page.page_number %}">Prev</a>
+            <a class="btn" href="{% url 'page' page.document.id page.get_prev_page_number %}">Prev</a>
         </div>
+        {% endif %}
+        {% if page.get_next_page_number != page.page_number %}
         <div class="col" align="right">
-            <a class="btn" href="{% url 'page' page.document.id page.page_number +1 %}">Next</a>
+            <a class="btn" href="{% url 'page' page.document.id page.get_next_page_number %}">Next</a>
         </div>
+        {% endif %}
     </div>
     
 
