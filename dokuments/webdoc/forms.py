@@ -13,6 +13,7 @@ class UserForm(forms.ModelForm):
         model = User
         exclude = ['permission', 'activeUntil']
 
+
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
