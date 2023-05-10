@@ -21,12 +21,12 @@
               </a>
             </li>
             <li class="nav-item active">
-              <a href="{% url 'addresses'  %}" class="nav-link">
+              <a href="{% url 'addresses'  %}" class="nav-link active">
                 Addresses
               </a>
             </li>
             <li class="nav-item active">
-              <a href="{% url 'payment'  %}" class="nav-link active">
+              <a href="{% url 'payment'  %}" class="nav-link">
                 Payment
               </a>
             </li>
@@ -35,17 +35,28 @@
         </div>
       </nav>
 
-    <form action=" {% url 'makepayment' %} " method=POST style="margin: 5%;">
-        {% csrf_token %}
+
+    <div class="container" align="center" style="max-width: 30vw; margin-top: 5%;">
         
-        {{ payment_form.as_p }}
+        <div class="text" style="background-color: rgb(141, 141, 141);">Addresses</div>
+        <div class="container" align="center" style="background-color: rgb(182, 182, 182); padding-bottom: 15%;">
+            
+            {% for address in addresses %}
+    
+                <div> {{ address.name }} </div>
+    
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+    <form action=" {% url 'makeaddress' %} " method=POST style="margin: 5%;" align="center">
+        {% csrf_token %}
+        <div style="margin-bottom: 2%;">Make new Address</div>
+        {{ address_form.as_p }}
         
 
-        <div class="row" style="margin-top: 5vh;">
-            <div class="col-3">
-                <input class="btn btn-dark" type="submit" value="Submit">
-            </div>
-        </div>
+        <input class="btn btn-dark" type="submit" value="Submit" style="margin-top: 5%;">
 
         
     </form>

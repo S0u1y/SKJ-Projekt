@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, User, Payment
+from .models import Comment, User, Payment, Address
 
 
 class CommentForm(forms.ModelForm):
@@ -19,3 +19,8 @@ class PaymentForm(forms.ModelForm):
         model = Payment
         exclude = ['date']
 
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['name']

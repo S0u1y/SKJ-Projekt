@@ -14,6 +14,6 @@ urlpatterns = [
     path('contacts/', views.contacts, name='contacts'),
     path('payment/', views.payment, name='payment'),
     path('makepayment/', views.makepayment, name='makepayment'),
-
-
+    path('addresses/', views.addresses, name='addresses'),
+    path('makeaddress/', views.makeaddress, name='makeaddress'),
 ]

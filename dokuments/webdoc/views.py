@@ -96,7 +96,6 @@ def contacts(request):
     staff = User.objects.filter(permission='Z')
     return render(request, 'webdoc/contacts.html', {'staff': staff})
 
-#TODO payments
 
 def payment(requrest):
     payment_form = PaymentForm()
@@ -114,7 +113,25 @@ def makepayment(request):
             user=payment_form.cleaned_data.get('user'),
             amount=payment_form.cleaned_data.get('amount')
         )
+        payment.save()
 
-#TODO create documents?
+    return redirect('payment')
 
 
+# TODO create documents?
+
+def addresses(request):
+    l_addresses = Address.objects.all()
+    address_form = AddressForm()
+    return render(request, 'webdoc/addresses.html', {'addresses': l_addresses, 'address_form': address_form})
+
+
+def makeaddress(request):
+    if request.method == 'POST':
+        address_form = AddressForm(request.POST)
+        if address_form.is_valid():
+            newAddress = Address(name = address_form.cleaned_data.get('name'))
+            newAddress.save()
+
+    return redirect('addresses')
+    pass
